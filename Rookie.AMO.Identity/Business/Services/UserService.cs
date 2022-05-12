@@ -44,7 +44,7 @@ namespace Rookie.AMO.Identity.Business.Services
             }
 
             var passwordGenerator = new Password(includeLowercase: true, includeUppercase: true, includeNumeric: true, includeSpecial: true, passwordLength: 8);
-            var randomPassword = passwordGenerator.Next();
+            var randomPassword = "12345678"; //passwordGenerator.Next();
 
             var createUserResult = await _userManager.CreateAsync(user, randomPassword);
 

@@ -210,7 +210,32 @@ namespace Rookie.AMO.Identity
                         "http://localhost:5011",
                         "https://b3g1-amo-api.azurewebsites.net"
                     },
-                }
+                },
+                //angular app
+                new Client {
+                    ClientId = "angular",
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+
+                    //RedirectUris = { "https://angular-ivy-qfiesp.stackblitz.io" },
+                    //PostLogoutRedirectUris = { "https://angular-ivy-qfiesp.stackblitz.io" },
+                    //AllowedCorsOrigins = { "https://angular-ivy-qfiesp.stackblitz.io" },
+
+                    RedirectUris = { "http://localhost:4200" },
+                    PostLogoutRedirectUris = { "http://localhost:4200" },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
+
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "roles"
+                    },
+
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                },
             };
         }
     }

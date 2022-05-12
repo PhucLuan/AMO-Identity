@@ -12,6 +12,7 @@ using static IdentityServer4.IdentityServerConstants;
 using System.Linq;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.Net.Http.Headers;
+using Rookie.AMO.Identity.Contract;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,14 +53,22 @@ namespace Rookie.AMO.Identity.Quickstart.Api
         }
 
         [Authorize(Policy = "ADMIN_ROLE_POLICY")]
-        [HttpGet("find")]
+        [HttpPost("find")]
         public async Task<PagedResponseModel<UserDto>> PagedQueryAsync
-        (string name, string type, int page, string propertyName
-            , bool desc, string search, int limit = 3)
+        (FilterUserModel filterUserModel)
         {
             var adminLocation = User.Claims.FirstOrDefault(x => x.Type == "location").Value;
-            return await _userService.PagedQueryAsync(name, type, page, limit, propertyName, desc, search, adminLocation);
+            return await _userService.PagedQueryAsync(
+                filterUserModel.name,
+                filterUserModel.type,
+                filterUserModel.page,
+                filterUserModel.limit,
+                filterUserModel.propertyName,
+                filterUserModel.desc,
+                filterUserModel.search, adminLocation);
+            //return await _userService.PagedQueryAsync(name, type, page, limit, propertyName, desc, search, adminLocation);
         }
+
 
         [Authorize(Policy = "ADMIN_ROLE_POLICY")]
         [HttpPost]
